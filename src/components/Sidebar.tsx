@@ -113,7 +113,7 @@ const Sidebar = () => {
             </a>
           </li>
 
-          <li className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+          <li className="pt-4 border-t border-gray-200 dark:border-gray-700">
             <span className={`text-xs font-medium text-gray-400 dark:text-gray-500 px-3 ${!isExpanded && 'sr-only'}`}>
               Create & Import
             </span>
@@ -145,7 +145,7 @@ const Sidebar = () => {
         </ul>
       </nav>
       
-      <div className="py-4 px-3 border-t border-gray-200 dark:border-gray-700">
+      <div className="py-4 px-3 border-gray-200 dark:border-gray-700">
         <button 
           onClick={() => setIsDarkMode(!isDarkMode)}
           className={`flex items-center rounded-lg p-2 w-full text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}
