@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart3, Home, Database, PieChart, LineChart, Sun, Moon, ChevronRight } from 'lucide-react';
+import { 
+  BarChart3, 
+  Home, 
+  Database, 
+  PieChart, 
+  LineChart, 
+  Sun, 
+  Moon, 
+  ChevronRight,
+  PlusSquare,
+  FileUp,
+  Table
+} from 'lucide-react';
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -100,10 +112,40 @@ const Sidebar = () => {
               </span>
             </a>
           </li>
+
+          <li className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+            <span className={`text-xs font-medium text-gray-400 dark:text-gray-500 px-3 ${!isExpanded && 'sr-only'}`}>
+              Create & Import
+            </span>
+          </li>
+          <li>
+            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+              <PlusSquare className="h-5 w-5 shrink-0" />
+              <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
+                Create Chart
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+              <FileUp className="h-5 w-5 shrink-0" />
+              <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
+                Upload PDF
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+              <Table className="h-5 w-5 shrink-0" />
+              <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
+                Import Excel
+              </span>
+            </a>
+          </li>
         </ul>
       </nav>
       
-      <div className="py-4 px-3 border-gray-200 dark:border-gray-700">
+      <div className="py-4 px-3 border-t border-gray-200 dark:border-gray-700">
         <button 
           onClick={() => setIsDarkMode(!isDarkMode)}
           className={`flex items-center rounded-lg p-2 w-full text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}
