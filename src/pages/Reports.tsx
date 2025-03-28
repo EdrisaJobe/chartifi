@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   FileText, 
   Download, 
@@ -88,6 +88,19 @@ const Reports = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState('sales');
   const [selectedFrequency, setSelectedFrequency] = useState('once');
+  const [selectedFormat, setSelectedFormat] = useState('pdf');
+  const [selectedStatus, setSelectedStatus] = useState<'completed' | 'scheduled' | 'shared'>('completed');
+  const [reportName, setReportName] = useState('');
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [previewReport, setPreviewReport] = useState<Report | null>(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareReport, setShareReport] = useState<Report | null>(null);
+  const [shareEmail, setShareEmail] = useState('');
+
+  useEffect(() => {
+    // Update report name when template changes
+    setReportName(`New ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Report`);
+  }, [selectedTemplate]);
 
   // Filter reports based on search and filters
   const filteredReports = reports.filter(report => {
@@ -141,16 +154,56 @@ const Reports = () => {
     setReports(reports.filter(report => report.id !== id));
   };
 
+  // Handle preview report
+  const handlePreviewReport = (report: Report) => {
+    setPreviewReport(report);
+    setShowPreviewModal(true);
+  };
+
+  // Handle download report
+  const handleDownloadReport = (report: Report) => {
+    // In a real application, this would initiate a file download
+    // For this demo, we'll just show an alert
+    alert(`Downloading ${report.name} (${report.type.toUpperCase()})`);
+  };
+
+  // Handle share report
+  const handleShareReport = (report: Report) => {
+    setShareReport(report);
+    setShowShareModal(true);
+  };
+
+  // Handle complete share
+  const handleCompleteShare = () => {
+    if (shareReport && shareEmail) {
+      // In a real application, this would send the report to the email
+      alert(`Shared ${shareReport.name} with ${shareEmail}`);
+      
+      // Update report status to shared
+      const updatedReports = reports.map(r => 
+        r.id === shareReport.id 
+          ? { ...r, status: 'shared' as const } 
+          : r
+      );
+      setReports(updatedReports);
+      
+      // Reset and close modal
+      setShareEmail('');
+      setShareReport(null);
+      setShowShareModal(false);
+    }
+  };
+
   // Handle create report
   const handleCreateReport = () => {
     const newReport: Report = {
       id: Date.now().toString(),
-      name: `New ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Report`,
-      type: 'pdf',
+      name: reportName,
+      type: selectedFormat as 'pdf' | 'excel' | 'csv' | 'image',
       createdAt: new Date().toISOString(),
       createdBy: 'Current User',
       size: '0.0 MB',
-      status: selectedFrequency === 'once' ? 'completed' : 'scheduled'
+      status: selectedStatus
     };
     
     setReports([newReport, ...reports]);
@@ -285,18 +338,21 @@ const Reports = () => {
                         <button 
                           className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
                           title="Preview"
+                          onClick={() => handlePreviewReport(report)}
                         >
                           <Eye className="h-4 w-4" />
                         </button>
                         <button 
                           className="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300"
                           title="Download"
+                          onClick={() => handleDownloadReport(report)}
                         >
                           <Download className="h-4 w-4" />
                         </button>
                         <button 
                           className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
                           title="Share"
+                          onClick={() => handleShareReport(report)}
                         >
                           <Share2 className="h-4 w-4" />
                         </button>
@@ -419,7 +475,8 @@ const Reports = () => {
                     type="text"
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
                     placeholder="Enter report name"
-                    defaultValue={`New ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Report`}
+                    value={reportName}
+                    onChange={(e) => setReportName(e.target.value)}
                   />
                 </div>
                 
@@ -429,12 +486,28 @@ const Reports = () => {
                   </label>
                   <select
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
-                    defaultValue="pdf"
+                    value={selectedFormat}
+                    onChange={(e) => setSelectedFormat(e.target.value)}
                   >
                     <option value="pdf">PDF</option>
                     <option value="excel">Excel</option>
                     <option value="csv">CSV</option>
                     <option value="image">Image</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Status
+                  </label>
+                  <select
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value as 'completed' | 'scheduled' | 'shared')}
+                  >
+                    <option value="completed">Completed</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="shared">Shared</option>
                   </select>
                 </div>
                 
@@ -522,6 +595,148 @@ const Reports = () => {
               >
                 <span>Generate Report</span>
                 <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Preview Modal */}
+      {showPreviewModal && previewReport && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full mx-4 h-3/4 flex flex-col">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Preview: {previewReport.name}</h3>
+              <button 
+                onClick={() => setShowPreviewModal(false)}
+                className="text-gray-400 hover:text-gray-500"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className="flex-1 p-6 overflow-auto">
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-8 h-full flex items-center justify-center">
+                <div className="text-center">
+                  <FileText className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {previewReport.type.toUpperCase()} file preview would be shown here
+                  </p>
+                  <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">
+                    File size: {previewReport.size}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-between">
+              <div>
+                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeClass(previewReport.status)}`}>
+                  {previewReport.status}
+                </span>
+                <span className="ml-2 text-sm text-gray-500">Created on {formatDate(previewReport.createdAt)}</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setShowPreviewModal(false);
+                    handleDownloadReport(previewReport);
+                  }}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  <span>Download</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowPreviewModal(false);
+                    handleShareReport(previewReport);
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center"
+                >
+                  <Share2 className="h-4 w-4 mr-2" />
+                  <span>Share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Share Modal */}
+      {showShareModal && shareReport && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Share Report</h3>
+            </div>
+            
+            <div className="p-6">
+              <div className="flex items-center gap-4 mb-6">
+                {getReportTypeIcon(shareReport.type)}
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{shareReport.name}</h4>
+                  <p className="text-sm text-gray-500">{shareReport.type.toUpperCase()} • {shareReport.size}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Share with Email
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
+                    placeholder="Enter email address"
+                    value={shareEmail}
+                    onChange={(e) => setShareEmail(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Permission
+                  </label>
+                  <select
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
+                    defaultValue="view"
+                  >
+                    <option value="view">Can view</option>
+                    <option value="comment">Can comment</option>
+                    <option value="edit">Can edit</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Message (optional)
+                  </label>
+                  <textarea
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
+                    rows={3}
+                    placeholder="Add a message..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-2">
+              <button
+                onClick={() => setShowShareModal(false)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCompleteShare}
+                disabled={!shareEmail}
+                className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center ${!shareEmail ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                <span>Share</span>
+                <Share2 className="ml-2 h-4 w-4" />
               </button>
             </div>
           </div>
