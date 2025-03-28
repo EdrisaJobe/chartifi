@@ -31,19 +31,16 @@ const ImportExcel = () => {
           const ws = wb.Sheets[wsname];
           const parsedData = utils.sheet_to_json(ws);
           
-          if (!Array.isArray(parsedData) || parsedData.length === 0) {
+          if (parsedData.length === 0) {
             throw new Error('No data found in the Excel file');
           }
           
           setData(parsedData);
           
-          // Send the data to our API helper
-          const response = await importExcelData(parsedData);
-          
-          if (response.success) {
+          // Use our local API helper instead of fetch
+          const result = await importExcelData(parsedData);
+          if (result.success) {
             setUploadSuccess(true);
-          } else {
-            throw new Error('Failed to save data');
           }
           
         } catch (error: any) {
@@ -98,7 +95,7 @@ const ImportExcel = () => {
 
       {uploadSuccess && !error && (
         <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-lg">
-          Excel data imported successfully! ({data.length} rows)
+          Excel data imported successfully!
         </div>
       )}
 
@@ -111,7 +108,7 @@ const ImportExcel = () => {
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  {Object.keys(data[0] || {}).map((header) => (
+                  {Object.keys(data[0]).map((header) => (
                     <th
                       key={header}
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
