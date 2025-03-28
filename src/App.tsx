@@ -14,6 +14,15 @@ import { Chart, registerables } from 'chart.js';
 // Register Chart.js components
 Chart.register(...registerables);
 
+// Demo Banner Component
+const DemoBanner = () => (
+  <div className="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-lg p-3 mb-6 text-center">
+    <p className="text-indigo-700 dark:text-indigo-300 font-medium">
+      Demo purpose site made by Edrisa Jobe
+    </p>
+  </div>
+);
+
 function App() {
   const [sidebarWidth, setSidebarWidth] = useState(64); // Default collapsed width (16 * 4 = 64px)
 
@@ -192,6 +201,7 @@ function App() {
           <Sidebar />
           
           <main className={`transition-all duration-300 ease-in-out ml-16 p-8 flex-1`} style={{ marginLeft: sidebarWidth }}>
+            <DemoBanner />
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/import-excel" element={<ImportExcel />} />
