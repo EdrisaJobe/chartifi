@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { read, utils } from 'xlsx';
 import { Upload } from 'lucide-react';
+import { importExcelData } from '../api/import-excel';
 
 const ImportExcel = () => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setLoading(true);
       setError(null);
+      setUploadSuccess(false);
       
       const file = event.target.files?.[0];
       if (!file) return;
@@ -26,15 +29,27 @@ const ImportExcel = () => {
           const wb = read(e.target?.result, { type: 'array' });
           const wsname = wb.SheetNames[0];
           const ws = wb.Sheets[wsname];
-          const data = utils.sheet_to_json(ws);
+          const parsedData = utils.sheet_to_json(ws);
           
-          setData(data);
+          if (!Array.isArray(parsedData) || parsedData.length === 0) {
+            throw new Error('No data found in the Excel file');
+          }
           
-          // Here you would typically send the data to your backend
-          await handleDataSubmission(data);
+          setData(parsedData);
           
-        } catch (error) {
-          setError('Error processing file. Please try again.');
+          // Send the data to our API helper
+          const response = await importExcelData(parsedData);
+          
+          if (response.success) {
+            setUploadSuccess(true);
+          } else {
+            throw new Error('Failed to save data');
+          }
+          
+        } catch (error: any) {
+          setError(error.message || 'Error processing file. Please try again.');
+        } finally {
+          setLoading(false);
         }
       };
       
@@ -42,27 +57,7 @@ const ImportExcel = () => {
       
     } catch (error: any) {
       setError(error.message);
-    } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDataSubmission = async (data: any[]) => {
-    try {
-      const response = await fetch('/api/import-excel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save data');
-      }
-
-    } catch (error: any) {
-      setError(error.message);
     }
   };
 
@@ -101,6 +96,12 @@ const ImportExcel = () => {
         </div>
       )}
 
+      {uploadSuccess && !error && (
+        <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-lg">
+          Excel data imported successfully! ({data.length} rows)
+        </div>
+      )}
+
       {data.length > 0 && (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
@@ -110,7 +111,7 @@ const ImportExcel = () => {
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  {Object.keys(data[0]).map((header) => (
+                  {Object.keys(data[0] || {}).map((header) => (
                     <th
                       key={header}
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"

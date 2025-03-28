@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import { BarChart2, ArrowUpRight, Users } from 'lucide-react';
 import ImportExcel from './pages/ImportExcel';
+import UploadPDF from './pages/UploadPDF';
 
 function App() {
   const [sidebarWidth, setSidebarWidth] = useState(64); // Default collapsed width (16 * 4 = 64px)
@@ -89,6 +90,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/import-excel" element={<ImportExcel />} />
+              <Route path="/upload-pdf" element={<UploadPDF />} />
             </Routes>
           </main>
         </div>
