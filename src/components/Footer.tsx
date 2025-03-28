@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="text-gray-500 dark:text-gray-400 text-sm">
-            © {currentYear} DataLens. All rights reserved.
+            © {currentYear} Chartifi. All rights reserved.
           </div>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-sm">Privacy Policy</a>

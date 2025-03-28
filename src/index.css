@@ -10,3 +10,20 @@
     font-feature-settings: "calt" 1, "kern" 1, "liga" 1;
   }
 }
+
+:root {
+  --background: #ffffff;
+  --text-primary: #333333;
+}
+
+/* Light mode is default, so we don't need a specific light mode class */
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+/* Dark mode styles will only apply when the 'dark' class is present */
+.dark {
+  --background: #1a1a1a;
+  --text-primary: #ffffff;
+}

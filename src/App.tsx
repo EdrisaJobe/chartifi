@@ -43,7 +43,7 @@ function App() {
   // Update the document title and icon programmatically
   useEffect(() => {
     // Set document title
-    document.title = "DataLens - Data Visualization Dashboard";
+    document.title = "Chartifi - Data Visualization Dashboard";
     
     // Create a dynamic favicon (this is one approach without requiring external files)
     const canvas = document.createElement('canvas');
@@ -180,7 +180,7 @@ function App() {
     return (
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Welcome to DataLens</h1>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Welcome to Chartifi</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Your powerful data visualization platform. Transform your Excel data into beautiful charts and easily share insights with your team.
           </p>
@@ -217,7 +217,7 @@ function App() {
             <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Get Started in Minutes</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                DataLens makes it easy to transform complex data into clear, compelling visualizations. Start by importing your Excel data or creating a custom chart.
+              Chartifi makes it easy to transform complex data into clear, compelling visualizations. Start by importing your Excel data or creating a custom chart.
               </p>
               <div className="flex gap-4">
                 <a href="/import-excel" className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">

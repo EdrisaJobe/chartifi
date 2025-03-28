@@ -84,7 +84,7 @@ const Sidebar = () => {
             </svg>
           </div>
           <span className={`text-xl font-bold text-gray-800 dark:text-white transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
-            DataLens
+          Chartifi
           </span>
         </div>
         <button 
