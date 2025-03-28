@@ -7,6 +7,7 @@ import ImportExcel from './pages/ImportExcel';
 import UploadPDF from './pages/UploadPDF';
 import CreateChart from './pages/CreateChart';
 import DataSources from './pages/DataSources';
+import Analytics from './pages/Analytics';
 import { Chart, registerables } from 'chart.js';
 
 // Register Chart.js components
@@ -196,6 +197,7 @@ function App() {
               <Route path="/upload-pdf" element={<UploadPDF />} />
               <Route path="/create-chart" element={<CreateChart />} />
               <Route path="/data-sources" element={<DataSources />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Routes>
           </main>
         </div>
