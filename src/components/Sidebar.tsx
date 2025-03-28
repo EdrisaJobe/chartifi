@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  BarChart3, 
   Home, 
   Database, 
   PieChart, 
@@ -65,7 +64,25 @@ const Sidebar = () => {
     >
       <div className="p-4 border-b border-gray-200 dark:border-gray-700 relative">
         <div className={`flex items-center ${isExpanded ? 'gap-2' : 'justify-center'}`}>
-          <BarChart3 className="h-6 w-6 text-indigo-600 dark:text-indigo-400 shrink-0" />
+          <div className="h-6 w-6 shrink-0 relative">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 64 64" 
+              className="text-indigo-600 dark:text-indigo-400"
+            >
+              {/* Gradient background - we'll use a solid color that matches */}
+              <rect width="64" height="64" rx="12" fill="currentColor" />
+              
+              {/* Bar chart elements */}
+              <rect x="14" y="34" width="8" height="18" fill="white" fillOpacity="0.9" />
+              <rect x="28" y="24" width="8" height="28" fill="white" fillOpacity="0.9" />
+              <rect x="42" y="14" width="8" height="38" fill="white" fillOpacity="0.9" />
+              
+              {/* Circular outline */}
+              <circle cx="32" cy="32" r="28" stroke="white" strokeWidth="2" fill="none" />
+            </svg>
+          </div>
           <span className={`text-xl font-bold text-gray-800 dark:text-white transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
             DataLens
           </span>

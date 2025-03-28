@@ -40,6 +40,51 @@ function App() {
     };
   }, []);
 
+  // Update the document title and icon programmatically
+  useEffect(() => {
+    // Set document title
+    document.title = "DataLens - Data Visualization Dashboard";
+    
+    // Create a dynamic favicon (this is one approach without requiring external files)
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    
+    if (ctx) {
+      // Create gradient background
+      const gradient = ctx.createLinearGradient(0, 0, 64, 64);
+      gradient.addColorStop(0, '#4f46e5');  // Indigo
+      gradient.addColorStop(1, '#7c3aed');  // Purple
+      
+      // Fill background
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 64, 64);
+      
+      // Add data visualization elements
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      
+      // Draw a bar chart icon
+      ctx.fillRect(14, 34, 8, 18);  // Bar 1
+      ctx.fillRect(28, 24, 8, 28);  // Bar 2 
+      ctx.fillRect(42, 14, 8, 38);  // Bar 3
+      
+      // Add circular highlight
+      ctx.beginPath();
+      ctx.arc(32, 32, 28, 0, Math.PI * 2);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      // Convert to favicon
+      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.setAttribute('type', 'image/png');
+      link.setAttribute('rel', 'shortcut icon');
+      link.setAttribute('href', canvas.toDataURL('image/png'));
+      document.head.appendChild(link);
+    }
+  }, []);
+
   const Dashboard = () => {
     const previewChartRef = useRef<HTMLCanvasElement>(null);
     
