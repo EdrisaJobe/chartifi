@@ -8,6 +8,7 @@ import UploadPDF from './pages/UploadPDF';
 import CreateChart from './pages/CreateChart';
 import DataSources from './pages/DataSources';
 import Analytics from './pages/Analytics';
+import Reports from './pages/Reports';
 import { Chart, registerables } from 'chart.js';
 
 // Register Chart.js components
@@ -198,6 +199,7 @@ function App() {
               <Route path="/create-chart" element={<CreateChart />} />
               <Route path="/data-sources" element={<DataSources />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/reports" element={<Reports />} />
             </Routes>
           </main>
         </div>
