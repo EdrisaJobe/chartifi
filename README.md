@@ -1,3 +1,5 @@
+![Demo Screenshot](https://media-hosting.imagekit.io/8ae19cef90424e2b/Screenshot%202025-03-28%20014722.png?Expires=1837749040&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=zBLttNCTSbZcKWNlXOAJ8nXLjg~LvpMLFelfwN23y7WzBBTzCFMp9ivJYJOcW3UIwZqAnvHzo1NBjPDLKG9Vt6nqXQ9ROZT4M5D5~wd~x9S1w-tK-PNlIFVxBwSim5-O97vD0yoQEyR76lSogLhsXIAYOurS8Hofb~Oi7Fa9IkXwxqL5ucct7EpdLpxQC2-UIcgiwRjGIN62b~hqWp28L6mHgc2ELNYYzFNxrx0p6NUpEZiB9OH4-sDcD3FxCviSWgV2lGj8Rt1bw3lB43gacStmDxg31AO93WR0WqdZg1f7svRKPTI~iRaDdssngFN0fV7vQ4hP10guKe6O6Zl~rA__)
+
 # Data Visualization & PDF Management Tool
 
 A modern web application for creating interactive charts and managing PDF documents, built with React and Chart.js.
