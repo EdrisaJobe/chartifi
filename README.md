@@ -1,16 +1,72 @@
-<<<<<<< HEAD
-# React + Vite
+# Data Visualization & PDF Management Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for creating interactive charts and managing PDF documents, built with React and Chart.js.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Chart Creation
+- Create dynamic charts with multiple visualization options:
+  - Bar charts
+  - Line charts 
+  - Pie charts
+  - Doughnut charts
+- Customize chart colors, labels, and values
+- Real-time preview of changes
+- Responsive design that maintains aspect ratio
+- Support for multiple data points with easy add/remove functionality
+- Custom titles and legends
 
-## Expanding the ESLint configuration
+### PDF Management
+- Drag-and-drop PDF upload interface
+- File type validation
+- Preview functionality for uploaded PDFs
+- Progress indication during upload
+- Error handling with user feedback
+- Dark mode support
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# datalens
->>>>>>> dd5cd0a2cf4c35c04bb68801f268035e330625f0
+## 🛠️ Technical Stack
+
+- **Frontend**: React with TypeScript
+- **Charting**: Chart.js with full component registration
+- **UI Components**: Custom components with Lucide React icons
+- **Styling**: Tailwind CSS for responsive design
+- **File Handling**: Native File API with blob URL creation
+
+## 🔧 Implementation Details
+
+### Chart Component
+- Real-time rendering with canvas
+- Automatic cleanup of chart instances
+- Configurable chart options including:
+  - Responsive scaling
+  - Custom color schemes
+  - Axis customization
+  - Legend positioning
+  - Title formatting
+
+### PDF Upload Component
+- Asynchronous file processing
+- Built-in validation
+- Progress state management
+- Error boundary implementation
+- Preview URL generation
+
+## 🎨 Design Features
+
+- Clean, modern interface
+- Responsive layout
+- Dark mode compatibility
+- Interactive elements with hover states
+- Consistent spacing and typography
+- Professional color scheme
+
+## 🚀 Getting Started
+
+1. Clone the repository
+2. Install dependencies
+3. Run the development server
+4. Start creating charts or uploading PDFs
+
+## 📝 Note
+
+This application is designed for seamless data visualization and PDF management, with a focus on user experience and performance.
