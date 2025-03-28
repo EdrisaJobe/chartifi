@@ -6,6 +6,7 @@ import { BarChart2, ArrowUpRight, Users, FileUp } from 'lucide-react';
 import ImportExcel from './pages/ImportExcel';
 import UploadPDF from './pages/UploadPDF';
 import CreateChart from './pages/CreateChart';
+import DataSources from './pages/DataSources';
 import { Chart, registerables } from 'chart.js';
 
 // Register Chart.js components
@@ -194,6 +195,7 @@ function App() {
               <Route path="/import-excel" element={<ImportExcel />} />
               <Route path="/upload-pdf" element={<UploadPDF />} />
               <Route path="/create-chart" element={<CreateChart />} />
+              <Route path="/data-sources" element={<DataSources />} />
             </Routes>
           </main>
         </div>
