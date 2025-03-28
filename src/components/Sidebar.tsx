@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   BarChart3, 
   Home, 
@@ -81,36 +82,36 @@ const Sidebar = () => {
       <nav className="flex-1 py-4">
         <ul className="space-y-2 px-3">
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <Home className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Dashboard
               </span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/data-sources" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <Database className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Data Sources
               </span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/analytics" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <PieChart className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Analytics
               </span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/reports" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <LineChart className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Reports
               </span>
-            </a>
+            </Link>
           </li>
 
           <li className="pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -119,28 +120,28 @@ const Sidebar = () => {
             </span>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/create-chart" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <PlusSquare className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Create Chart
               </span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/upload-pdf" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <FileUp className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Upload PDF
               </span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
+            <Link to="/import-excel" className={`flex items-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 ${isExpanded ? 'gap-3 px-3' : 'justify-center'}`}>
               <Table className="h-5 w-5 shrink-0" />
               <span className={`transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 Import Excel
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
